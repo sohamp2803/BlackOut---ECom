@@ -108,19 +108,9 @@ const Login = ({ setToggle }) => {
                   className="bg-[#0d0d0d] px-4 text-[11px] leading-4 tracking-widest font-bold text-[#c4c7c7]"
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 >
-                  OR CONTINUE WITH
+                  DON'T HAVE ACCOUNT?
                 </span>
               </div>
-            </div>
-
-            {/* Social Logins */}
-            <div className="grid grid-cols-2 gap-3">
-              <button className="flex items-center justify-center p-3 border border-[#444748]/30 hover:border-[#e5e2e1] transition-colors duration-300 text-[#e5e2e1] cursor-pointer">
-                <span className="material-symbols-outlined">login</span>
-              </button>
-              <button className="flex items-center justify-center p-3 border border-[#444748]/30 hover:border-[#e5e2e1] transition-colors duration-300 text-[#e5e2e1] cursor-pointer">
-                <span className="material-symbols-outlined">devices</span>
-              </button>
             </div>
 
             <div className="text-center pt-4">
@@ -129,7 +119,7 @@ const Login = ({ setToggle }) => {
                   e.preventDefault();
                   setToggle((prev) => !prev);
                 }}
-                className="cursor-pointer text-[11px] leading-4 tracking-widest font-bold text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors duration-200 underline"
+                className="cursor-pointer text-[15px] leading-4 tracking-widest font-bold text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors duration-200 "
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
                 CREATE AN ACCOUNT
