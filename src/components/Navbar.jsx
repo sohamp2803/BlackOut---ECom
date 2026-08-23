@@ -6,9 +6,13 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cartCount } = useCart();
 
+  const handleLogout = () => {
+    // Yahan apna logout logic add karein
+    console.log("Logged out");
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full flex justify-between items-center px-5 sm:px-8 md:px-12 py-5 md:py-6 bg-[#131313] z-50 border-b border-[#2a2a2a]/40">
-      {" "}
       <div className="flex items-center gap-4">
         {/* Mobile Menu Toggle */}
         <button
@@ -31,6 +35,7 @@ const Navbar = () => {
           BLAKOUT.
         </NavLink>
       </div>
+
       {/* Desktop Navigation Links */}
       <nav className="hidden md:flex items-center gap-8">
         <NavLink
@@ -60,14 +65,10 @@ const Navbar = () => {
           STORE
         </NavLink>
       </nav>
+
       {/* Action Icons */}
       <div className="flex items-center gap-4 sm:gap-6 text-[#e5e2e1]">
-        <span className="material-symbols-outlined cursor-pointer hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
-          search
-        </span>
-        <span className="material-symbols-outlined cursor-pointer hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
-          person
-        </span>
+        {/* Cart Icon */}
         <span className="relative cursor-pointer">
           <span className="material-symbols-outlined hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
             shopping_bag
@@ -78,7 +79,20 @@ const Navbar = () => {
             </span>
           )}
         </span>
+
+        {/* Logout Button */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          title="Logout"
+          className="flex items-center justify-center cursor-pointer hover:text-[#c9c6c5] transition-colors"
+        >
+          <span className="material-symbols-outlined text-[20px] sm:text-[24px]">
+            logout
+          </span>
+        </button>
       </div>
+
       {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-[#131313] border-b border-[#2a2a2a] px-6 py-6 flex flex-col gap-4 md:hidden shadow-2xl">
