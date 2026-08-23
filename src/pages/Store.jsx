@@ -37,21 +37,21 @@ const Store = () => {
 
   return (
     <div
-      className="bg-[#131313] text-[#e5e2e1] antialiased min-h-screen flex flex-col selection:bg-[#c7c9a3] selection:text-[#2f3217]"
+      className="bg-[#131313] text-[#e5e2e1] antialiased min-h-screen flex flex-col pt-20 sm:pt-24 md:pt-28 selection:bg-[#c7c9a3] selection:text-[#2f3217]"
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
       {/* Main Content */}
       <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-28 grow">
         {/* Header / Hero */}
-        <header className="py-12 sm:py-16 md:py-24 border-b border-[#444748]/20 mb-8 sm:mb-12">
+        <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12">
           <div>
             <h1
-              className="text-[48px] sm:text-[64px] md:text-[120px] leading-[0.9] text-[#e5e2e1] uppercase mb-4 tracking-tighter"
+              className="text-[40px] sm:text-[64px] md:text-[120px] leading-none text-[#e5e2e1] uppercase mb-4 tracking-tighter"
               style={{ fontFamily: "'Anton', sans-serif" }}
             >
               THE SHOP
             </h1>
-            <p className="text-[14px] sm:text-[16px] md:text-[18px] text-[#c4c7c7] max-w-2xl">
+            <p className="text-[13px] sm:text-[16px] md:text-[18px] text-[#c4c7c7] max-w-2xl">
               Curated functional streetwear. Modern minimal pieces built to
               convert and made to stand out.
             </p>
@@ -79,7 +79,6 @@ const Store = () => {
               const price = item.variants?.[0]?.price || "";
               const compareAtPrice = item.variants?.[0]?.compare_at_price;
 
-              // Check current product cart mein kitni quantity ke sath hai
               const cartProduct = cartItems.find(
                 (cartItem) => cartItem.id === item.id,
               );
@@ -137,7 +136,7 @@ const Store = () => {
                     </div>
                   </div>
 
-                  {/* Conditional Render: Add to Cart button vs Quantity Controller */}
+                  {/* Quantity & Cart Button Toggle */}
                   {currentQty === 0 ? (
                     <button
                       type="button"
