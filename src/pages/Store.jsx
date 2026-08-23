@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const { cartItems, addToCart, updateQuantity } = useCart();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,6 +22,18 @@ const Store = () => {
 
     fetchProducts();
   }, []);
+
+  const handleAddToCart = (item) => {
+    const imageUrl = item.images?.[0]?.src || "";
+    const price = item.variants?.[0]?.price || "";
+
+    addToCart({
+      id: item.id,
+      title: item.title || "Exclusive Product",
+      price,
+      image: imageUrl,
+    });
+  };
 
   return (
     <div
@@ -56,7 +70,7 @@ const Store = () => {
           </div>
         )}
 
-        {/* Product Grid: 2 cols on mobile, 3 on tablet, 4 on desktop */}
+        {/* Product Grid */}
         <div className="w-full">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {products.map((item) => {
@@ -64,6 +78,12 @@ const Store = () => {
               const title = item.title || "Exclusive Product";
               const price = item.variants?.[0]?.price || "";
               const compareAtPrice = item.variants?.[0]?.compare_at_price;
+
+              // Check current product cart mein kitni quantity ke sath hai
+              const cartProduct = cartItems.find(
+                (cartItem) => cartItem.id === item.id,
+              );
+              const currentQty = cartProduct ? cartProduct.quantity : 0;
 
               return (
                 <div
@@ -117,21 +137,47 @@ const Store = () => {
                     </div>
                   </div>
 
-                  {/* Add to Bag Button */}
-                  <button
-                    type="button"
-                    className="w-full bg-[#202020] hover:bg-[#e5e2e1] text-[#e5e2e1] hover:text-[#131313] border border-[#333333] hover:border-[#e5e2e1] py-2 sm:py-3 px-2 sm:px-4 flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 cursor-pointer active:scale-[0.98]"
-                  >
-                    <span className="material-symbols-outlined text-[15px] sm:text-[18px]">
-                      shopping_bag
-                    </span>
-                    <span
-                      className="text-[10px] sm:text-[12px] font-bold tracking-wider sm:tracking-widest uppercase truncate"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  {/* Conditional Render: Add to Cart button vs Quantity Controller */}
+                  {currentQty === 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => handleAddToCart(item)}
+                      className="w-full bg-[#202020] hover:bg-[#e5e2e1] text-[#e5e2e1] hover:text-[#131313] border border-[#333333] hover:border-[#e5e2e1] py-2 sm:py-3 px-2 sm:px-4 flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 cursor-pointer active:scale-[0.98]"
                     >
-                      Add To Cart
-                    </span>
-                  </button>
+                      <span className="material-symbols-outlined text-[15px] sm:text-[18px]">
+                        shopping_bag
+                      </span>
+                      <span
+                        className="text-[10px] sm:text-[12px] font-bold tracking-wider sm:tracking-widest uppercase truncate"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                        Add To Cart
+                      </span>
+                    </button>
+                  ) : (
+                    <div className="flex items-center justify-between border border-[#333333] bg-[#141414] py-1.5 px-3 w-full">
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, currentQty - 1)}
+                        className="text-[#c4c7c7] hover:text-[#e5e2e1] w-7 h-7 flex items-center justify-center text-base font-bold active:scale-90 select-none cursor-pointer"
+                      >
+                        -
+                      </button>
+                      <span
+                        className="text-[13px] font-semibold text-[#e5e2e1] select-none"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                        {currentQty}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, currentQty + 1)}
+                        className="text-[#c4c7c7] hover:text-[#e5e2e1] w-7 h-7 flex items-center justify-center text-base font-bold active:scale-90 select-none cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -151,28 +197,28 @@ const Store = () => {
           <a
             className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#"
+            href="#privacy"
           >
             PRIVACY
           </a>
           <a
             className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#"
+            href="#terms"
           >
             TERMS
           </a>
           <a
             className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#"
+            href="#contact"
           >
             CONTACT
           </a>
           <a
             className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#"
+            href="#shipping"
           >
             SHIPPING
           </a>

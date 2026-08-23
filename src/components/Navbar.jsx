@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cartCount } = useCart();
 
   return (
-    <header className="relative w-full flex justify-between items-center px-5 sm:px-8 md:px-12 py-5 md:py-6 bg-[#131313] z-40 border-b border-[#2a2a2a]/40">
+    <header className="fixed top-0 left-0 w-full flex justify-between items-center px-5 sm:px-8 md:px-12 py-5 md:py-6 bg-[#131313] z-50 border-b border-[#2a2a2a]/40">
+      {" "}
       <div className="flex items-center gap-4">
         {/* Mobile Menu Toggle */}
         <button
@@ -28,7 +31,6 @@ const Navbar = () => {
           BLAKOUT.
         </NavLink>
       </div>
-
       {/* Desktop Navigation Links */}
       <nav className="hidden md:flex items-center gap-8">
         <NavLink
@@ -58,7 +60,6 @@ const Navbar = () => {
           STORE
         </NavLink>
       </nav>
-
       {/* Action Icons */}
       <div className="flex items-center gap-4 sm:gap-6 text-[#e5e2e1]">
         <span className="material-symbols-outlined cursor-pointer hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
@@ -67,11 +68,17 @@ const Navbar = () => {
         <span className="material-symbols-outlined cursor-pointer hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
           person
         </span>
-        <span className="material-symbols-outlined cursor-pointer hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
-          shopping_bag
+        <span className="relative cursor-pointer">
+          <span className="material-symbols-outlined hover:text-[#c9c6c5] transition-colors text-[20px] sm:text-[24px]">
+            shopping_bag
+          </span>
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-[#c7c9a3] text-[#131313] text-[10px] font-bold w-4.5 h-4.5 flex items-center justify-center rounded-full leading-none">
+              {cartCount}
+            </span>
+          )}
         </span>
       </div>
-
       {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-[#131313] border-b border-[#2a2a2a] px-6 py-6 flex flex-col gap-4 md:hidden shadow-2xl">
