@@ -1,3 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap");
 
 @import "tailwindcss";
+
+/* Chrome, Safari, Opera aur Edge ke liye */
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Firefox, IE aur generic disable */
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}

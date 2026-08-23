@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import React from "react";
+import Navbar from "./components/Navbar";
+import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
-  const [toggle, setToggle] = useState(true);
-
-  return <div>{toggle ? <Login setToggle={setToggle} /> : <Signup setToggle={setToggle} />}</div>;
+  return (
+    <div>
+      <Navbar />
+      <AppRoutes />
+      
+    </div>
+  );
 };
 
 export default App;
