@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Home = () => {
+  let nevigate = useNavigate();
   return (
     <div
       className="bg-[#131313] text-[#e5e2e1] antialiased min-h-screen flex flex-col selection:bg-[#c7c9a3] selection:text-[#131313]"
@@ -42,6 +44,7 @@ const Home = () => {
 
           {/* Action Button */}
           <button
+            onClick={() => nevigate("/store")}
             type="button"
             className="w-full sm:w-auto bg-[#e5e2e1] text-[#131313] hover:bg-[#c7c9a3] py-4 px-8 flex justify-between sm:justify-center items-center gap-4 transition-all duration-200 cursor-pointer active:scale-95 shadow-xl"
           >
