@@ -8,7 +8,7 @@ export const souledStoreBottoms = [
     discount: "₹400 OFF",
     fit: "Straight Cargo Fit",
     image:
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1758177809_8384811.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/explore/cargo-jeans",
   },
   {
@@ -20,7 +20,7 @@ export const souledStoreBottoms = [
     discount: "20% OFF",
     fit: "Relaxed Fit",
     image:
-      "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785482926_3757469.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
   {
@@ -32,7 +32,7 @@ export const souledStoreBottoms = [
     discount: "₹500 OFF",
     fit: "Wide Leg Baggy",
     image:
-      "https://images.unsplash.com/photo-1542272604-780c96856592?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1786110229_8159629.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/explore/cargo-jeans",
   },
   {
@@ -44,7 +44,7 @@ export const souledStoreBottoms = [
     discount: "₹400 OFF",
     fit: "Multi-Pocket Utility",
     image:
-      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785760298_2764656.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/explore/cargo-jeans",
   },
   {
@@ -56,7 +56,7 @@ export const souledStoreBottoms = [
     discount: "13% OFF",
     fit: "Durable Ripstop Cotton",
     image:
-      "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785493353_3890588.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
   {
@@ -68,7 +68,7 @@ export const souledStoreBottoms = [
     discount: "18% OFF",
     fit: "Streetwear Oversized",
     image:
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1786032481_5714703.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
   {
@@ -80,7 +80,7 @@ export const souledStoreBottoms = [
     discount: "17% OFF",
     fit: "Classic Straight Fit",
     image:
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785751447_2079524.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
   {
@@ -92,7 +92,7 @@ export const souledStoreBottoms = [
     discount: "₹400 OFF",
     fit: "Breathable Stretch Fit",
     image:
-      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785483000_6316031.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
   {
@@ -104,7 +104,7 @@ export const souledStoreBottoms = [
     discount: "₹400 OFF",
     fit: "Heavyweight Denim Cargo",
     image:
-      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1782546214_2446847.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/explore/cargo-jeans",
   },
   {
@@ -116,7 +116,7 @@ export const souledStoreBottoms = [
     discount: "₹500 OFF",
     fit: "Tapered Cargo Fit",
     image:
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80",
+      "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1785494839_7891624.jpg?format=webp&w=480&dpr=2&q=80",
     link: "https://www.thesouledstore.com/men/cargo-pants",
   },
 ];
