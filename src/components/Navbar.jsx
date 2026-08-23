@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext"; // 👈 1. useAuth import karein
+import { useAuth } from "../context/AuthContext";
 import CartDrawer from "./CartDrawer";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartCount = 0 } = useCart();
-  const { logout } = useAuth(); // 👈 2. logout extract karein
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/auth"); // 👈 3. Logout ke baad wapas Login page par bhej dega
+    navigate("/auth");
   };
 
   const navLinkStyle = ({ isActive }) =>
@@ -50,7 +50,6 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
           <NavLink
             to="/"
@@ -82,9 +81,7 @@ const Navbar = () => {
           </NavLink>
         </nav>
 
-        {/* Action Icons */}
         <div className="flex items-center gap-4 sm:gap-6 text-[#e5e2e1]">
-          {/* Cart Trigger */}
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
@@ -101,7 +98,6 @@ const Navbar = () => {
             )}
           </button>
 
-          {/* Logout Button */}
           <button
             type="button"
             onClick={handleLogout}
@@ -114,7 +110,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-[#131313] border-b border-[#2a2a2a] px-6 py-6 flex flex-col gap-4 md:hidden shadow-2xl">
             <NavLink
@@ -164,7 +159,6 @@ const Navbar = () => {
         )}
       </header>
 
-      {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );

@@ -80,7 +80,6 @@ const TextLoop = ({
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/:/g, "")}`;
 
-  // Curviness ke mutabiq compact height calculate karein
   const VIEW_W = 1200;
   const VIEW_H =
     curviness === 0 && shape === "wave" ? Math.max(90, fontSize + 30) : 520;

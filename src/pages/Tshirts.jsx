@@ -20,9 +20,7 @@ const Tshirts = () => {
       className="bg-[#131313] text-[#e5e2e1] antialiased min-h-screen flex flex-col pt-20 sm:pt-24 md:pt-28 selection:bg-[#c7c9a3] selection:text-[#2f3217]"
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
-      {/* Main Content */}
       <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-16 grow">
-        {/* Header / Hero */}
         <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12">
           <div>
             <h1
@@ -38,7 +36,6 @@ const Tshirts = () => {
           </div>
         </header>
 
-        {/* Product Grid */}
         <div className="w-full">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {hotWheelsTshirts.map((item) => {
@@ -53,7 +50,6 @@ const Tshirts = () => {
                   className="group relative flex flex-col justify-between bg-[#181818] border border-[#2a2a2a] p-2.5 sm:p-3.5 hover:border-[#444748] transition-colors duration-300"
                 >
                   <div>
-                    {/* Image Box */}
                     <div className="relative w-full aspect-4/5 bg-[#141414] overflow-hidden mb-3 flex items-center justify-center">
                       {item.image ? (
                         <img
@@ -67,7 +63,6 @@ const Tshirts = () => {
                         </span>
                       )}
 
-                      {/* Badge */}
                       {item.discount && (
                         <div
                           className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-[#0d0d0d] text-[#c9c6c5] text-[9px] sm:text-[11px] tracking-widest font-bold px-1.5 py-0.5 uppercase"
@@ -78,12 +73,10 @@ const Tshirts = () => {
                       )}
                     </div>
 
-                    {/* Product Info */}
                     <h4 className="text-[13px] sm:text-[15px] text-[#e5e2e1] font-medium mb-1 uppercase tracking-wide truncate">
                       {item.name}
                     </h4>
 
-                    {/* Price & Discount */}
                     <div
                       className="flex items-baseline gap-1.5 sm:gap-2 text-[12px] sm:text-[14px] mb-3"
                       style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -100,7 +93,6 @@ const Tshirts = () => {
                     </div>
                   </div>
 
-                  {/* Quantity & Cart Button Toggle */}
                   {currentQty === 0 ? (
                     <button
                       type="button"
@@ -148,7 +140,6 @@ const Tshirts = () => {
         </div>
       </main>
 
-      {/* Sabse Last me: Custom Configured TextLoop */}
       <div className="w-full pb-8 overflow-hidden bg-[#131313]">
         <TextLoop
           text="HOT WHEELS TEES"
@@ -169,7 +160,6 @@ const Tshirts = () => {
         />
       </div>
 
-      {/* Footer */}
       <footer className="w-full py-12 sm:py-16 bg-[#0e0e0e] border-t border-[#444748]/20 flex flex-col md:flex-row justify-between items-center px-6 md:px-16 gap-6">
         <div
           className="text-[28px] md:text-[32px] text-[#e5e2e1] uppercase tracking-tighter"

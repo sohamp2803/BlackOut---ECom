@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router"; // ya "react-router-dom"
+import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 const Signup = ({ setToggle }) => {
   const [errorMsg, setErrorMsg] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 👈 Confirm Password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { signup } = useAuth();
   const navigate = useNavigate();
@@ -90,7 +90,6 @@ const Signup = ({ setToggle }) => {
             className="space-y-4"
             noValidate
           >
-            {/* Full Name */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}
@@ -119,7 +118,6 @@ const Signup = ({ setToggle }) => {
               )}
             </div>
 
-            {/* Email */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}
@@ -151,7 +149,6 @@ const Signup = ({ setToggle }) => {
               )}
             </div>
 
-            {/* Password with Eye Toggle */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300 relative group"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}
@@ -191,7 +188,6 @@ const Signup = ({ setToggle }) => {
               )}
             </div>
 
-            {/* Confirm Password with Eye Toggle */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300 relative group"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}

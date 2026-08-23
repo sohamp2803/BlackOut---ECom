@@ -6,20 +6,17 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    // Page refresh hone par user restore karein
     const loggedInUser = localStorage.getItem("blakout_current_user");
     if (loggedInUser) {
       setCurrentUser(JSON.parse(loggedInUser));
     }
   }, []);
 
-  // Signup Logic
   const signup = (userData) => {
     const existingUsers = JSON.parse(
       localStorage.getItem("blakout_users") || "[]",
     );
 
-    // Check if email already exists
     const userExists = existingUsers.some(
       (u) => u.email.toLowerCase() === userData.email.toLowerCase(),
     );
@@ -37,13 +34,11 @@ export const AuthProvider = ({ children }) => {
     existingUsers.push(newUser);
     localStorage.setItem("blakout_users", JSON.stringify(existingUsers));
 
-    // Auto-login after signup
     localStorage.setItem("blakout_current_user", JSON.stringify(newUser));
     setCurrentUser(newUser);
     return newUser;
   };
 
-  // Login Logic
   const login = ({ email, password }) => {
     const existingUsers = JSON.parse(
       localStorage.getItem("blakout_users") || "[]",
@@ -64,7 +59,6 @@ export const AuthProvider = ({ children }) => {
     return validUser;
   };
 
-  // Logout Logic
   const logout = () => {
     localStorage.removeItem("blakout_current_user");
     setCurrentUser(null);
@@ -77,6 +71,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// This module intentionally exports both the provider and its context hook.
+// AuthProvider and the hook are intentionally colocated so consumers share
+// the same context instance.
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

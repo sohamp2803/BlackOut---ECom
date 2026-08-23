@@ -26,9 +26,7 @@ const Store = () => {
     fetchProducts();
   }, []);
 
-  // Normalize and combine all products
   const allCombinedProducts = useMemo(() => {
-    // 1. T-Shirts collection
     const formattedTshirts = hotWheelsTshirts.map((item) => ({
       id: `tshirt-${item.id}`,
       title: item.name,
@@ -40,7 +38,6 @@ const Store = () => {
       subtitle: item.fabric || "Oversized Tee",
     }));
 
-    // 2. Bottoms collection
     const formattedBottoms = souledStoreBottoms.map((item) => ({
       id: `bottom-${item.id}`,
       title: item.name,
@@ -52,7 +49,6 @@ const Store = () => {
       subtitle: item.fit || "Pants & Cargo",
     }));
 
-    // 3. API Products
     const formattedApiProducts = apiProducts.map((item) => ({
       id: item.id,
       title: item.title || "Exclusive Product",
@@ -67,7 +63,6 @@ const Store = () => {
     return [...formattedTshirts, ...formattedBottoms, ...formattedApiProducts];
   }, [apiProducts]);
 
-  // Filter products based on selected tab
   const filteredProducts = useMemo(() => {
     if (selectedCategory === "ALL") return allCombinedProducts;
     return allCombinedProducts.filter((p) => p.category === selectedCategory);
@@ -87,9 +82,7 @@ const Store = () => {
       className="bg-[#131313] text-[#e5e2e1] antialiased min-h-screen flex flex-col pt-20 sm:pt-24 md:pt-28 selection:bg-[#c7c9a3] selection:text-[#2f3217]"
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
-      {/* Main Content */}
       <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-28 grow">
-        {/* Header / Hero */}
         <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <h1
@@ -104,7 +97,6 @@ const Store = () => {
             </p>
           </div>
 
-          {/* Category Filter Tabs */}
           <div
             className="flex gap-2 flex-wrap"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -126,7 +118,6 @@ const Store = () => {
           </div>
         </header>
 
-        {/* Error State */}
         {error && (
           <div className="flex justify-center items-center py-4">
             <p
@@ -138,7 +129,6 @@ const Store = () => {
           </div>
         )}
 
-        {/* Product Grid */}
         <div className="w-full">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {filteredProducts.map((item) => {
@@ -153,7 +143,6 @@ const Store = () => {
                   className="group relative flex flex-col justify-between bg-[#181818] border border-[#2a2a2a] p-2.5 sm:p-3.5 hover:border-[#444748] transition-colors duration-300"
                 >
                   <div>
-                    {/* Image Box */}
                     <div className="relative w-full aspect-4/5 bg-[#141414] overflow-hidden mb-3 flex items-center justify-center">
                       {item.image ? (
                         <img
@@ -178,19 +167,16 @@ const Store = () => {
                       )}
                     </div>
 
-                    {/* Subtitle / Fit */}
                     {item.subtitle && (
                       <span className="text-[10px] text-[#c7c9a3] uppercase tracking-wider block mb-0.5">
                         {item.subtitle}
                       </span>
                     )}
 
-                    {/* Product Title */}
                     <h4 className="text-[13px] sm:text-[15px] text-[#e5e2e1] font-medium mb-1 uppercase tracking-wide truncate">
                       {item.title}
                     </h4>
 
-                    {/* Price & Discount */}
                     <div
                       className="flex items-baseline gap-1.5 sm:gap-2 text-[12px] sm:text-[14px] mb-3"
                       style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -207,7 +193,6 @@ const Store = () => {
                     </div>
                   </div>
 
-                  {/* Quantity & Cart Button Toggle */}
                   {currentQty === 0 ? (
                     <button
                       type="button"
@@ -255,7 +240,6 @@ const Store = () => {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="w-full py-12 sm:py-16 bg-[#0e0e0e] border-t border-[#444748]/20 flex flex-col md:flex-row justify-between items-center px-6 md:px-16 gap-6">
         <div
           className="text-[28px] md:text-[32px] text-[#e5e2e1] uppercase tracking-tighter"

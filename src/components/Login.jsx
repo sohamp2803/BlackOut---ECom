@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router"; // ya "react-router-dom"
+import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 const Login = ({ setToggle }) => {
   const [errorMsg, setErrorMsg] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility state
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -31,7 +31,6 @@ const Login = ({ setToggle }) => {
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
       <main className="grow flex flex-col md:flex-row h-full overflow-hidden">
-        {/* Left Side */}
         <div className="hidden md:block w-1/2 bg-[#0e0e0e] border-r border-[#444748]/30 h-full relative overflow-hidden">
           <img
             alt=""
@@ -40,7 +39,6 @@ const Login = ({ setToggle }) => {
           />
         </div>
 
-        {/* Right Side */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 bg-[#0d0d0d] relative overflow-y-auto h-full">
           <div className="w-full max-w-md space-y-8 z-10 my-auto">
             <div className="space-y-2">
@@ -78,7 +76,6 @@ const Login = ({ setToggle }) => {
               noValidate
             >
               <div className="space-y-5">
-                {/* Email Input */}
                 <div className="relative group">
                   <input
                     id="email"
@@ -107,11 +104,10 @@ const Login = ({ setToggle }) => {
                   )}
                 </div>
 
-                {/* Password Input with Eye Toggle */}
                 <div className="relative group">
                   <input
                     id="password"
-                    type={showPassword ? "text" : "password"} // 👈 Toggle type
+                    type={showPassword ? "text" : "password"}
                     placeholder=" "
                     {...register("password", {
                       required: "PASSWORD IS REQUIRED",
@@ -126,7 +122,6 @@ const Login = ({ setToggle }) => {
                     PASSWORD
                   </label>
 
-                  {/* Eye Toggle Button */}
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -146,7 +141,6 @@ const Login = ({ setToggle }) => {
                 </div>
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}

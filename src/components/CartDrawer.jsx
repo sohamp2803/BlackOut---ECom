@@ -12,10 +12,9 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  // React state based checkout handler
   const handleCheckout = () => {
     setIsOrdered(true);
-    clearCart(); // Cart reset[cite: 10]
+    clearCart();
   };
 
   const handleClose = () => {
@@ -23,7 +22,6 @@ const CartDrawer = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  // Subtotal calculation[cite: 5]
   const subtotal = cartItems.reduce((acc, item) => {
     const priceNum = Number(String(item.price).replace(/[^0-9.]/g, "")) || 0;
     return acc + priceNum * (item.quantity || 1);
@@ -31,18 +29,15 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/75 backdrop-blur-sm cursor-pointer"
         onClick={handleClose}
       />
 
-      {/* Drawer Body[cite: 5] */}
       <aside
         className="relative w-full max-w-md bg-[#131313] border-l border-[#2a2a2a] text-[#e5e2e1] h-full flex flex-col shadow-2xl z-10"
         style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
       >
-        {/* Header[cite: 5] */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-[#2a2a2a] bg-[#131313]">
           <div className="flex items-baseline gap-2">
             <h2
@@ -67,7 +62,6 @@ const CartDrawer = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* 1. Order Success Screen */}
         {isOrdered ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center p-8 space-y-4">
             <div className="w-16 h-16 rounded-full bg-[#c7c9a3]/10 border border-[#c7c9a3] flex items-center justify-center text-[#c7c9a3]">
@@ -91,7 +85,6 @@ const CartDrawer = ({ isOpen, onClose }) => {
             </button>
           </div>
         ) : (
-          /* 2. Normal Cart View[cite: 5] */
           <>
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
               {cartItems.length === 0 ? (
@@ -139,7 +132,6 @@ const CartDrawer = ({ isOpen, onClose }) => {
                         </p>
                       </div>
 
-                      {/* Quantity Buttons[cite: 5] */}
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center border border-[#333333] bg-[#141414]">
                           <button
@@ -186,7 +178,6 @@ const CartDrawer = ({ isOpen, onClose }) => {
               )}
             </div>
 
-            {/* Subtotal & Checkout Button[cite: 5] */}
             {cartItems.length > 0 && (
               <div className="p-6 border-t border-[#2a2a2a] bg-[#111111]">
                 <div

@@ -9,7 +9,6 @@ const MainLayout = () => {
 
   return (
     <div>
-      {/* Navbar sirf tabhi dikhega jab user login hoga */}
       {currentUser && <Navbar />}
       <AppRoutes />
     </div>

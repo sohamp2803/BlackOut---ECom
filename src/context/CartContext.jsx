@@ -1,9 +1,9 @@
-/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState } from "react";
 
 const CartContext = createContext(null);
 
-// Custom hook — isse hi components mein import karke cart use karenge
+// This module intentionally exports both the provider component and its hook.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
@@ -15,7 +15,6 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Product add karna, agar already hai to quantity +1
   const addToCart = (product) => {
     setCartItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -46,10 +45,8 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCartItems([]);
 
-  // Navbar badge ke liye total item count
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  // Checkout / cart summary ke liye total price
   const cartTotal = cartItems.reduce(
     (total, item) => total + Number(item.price || 0) * item.quantity,
     0,
