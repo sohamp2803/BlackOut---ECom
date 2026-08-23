@@ -7,9 +7,19 @@ const Navbar = () => {
   const { cartCount } = useCart();
 
   const handleLogout = () => {
-    // Yahan apna logout logic add karein
-    console.log("Logged out");
+    // Logout logic
+    console.log("Logged out successfully");
   };
+
+  const navLinkStyle = ({ isActive }) =>
+    `text-[12px] leading-4 tracking-widest font-bold transition-colors ${
+      isActive ? "text-[#c7c9a3]" : "text-[#e5e2e1] hover:text-[#c9c6c5]"
+    }`;
+
+  const mobileNavLinkStyle = ({ isActive }) =>
+    `text-[13px] tracking-widest font-bold py-2 transition-colors ${
+      isActive ? "text-[#c7c9a3]" : "text-[#e5e2e1] hover:text-[#c7c9a3]"
+    }`;
 
   return (
     <header className="fixed top-0 left-0 w-full flex justify-between items-center px-5 sm:px-8 md:px-12 py-5 md:py-6 bg-[#131313] z-50 border-b border-[#2a2a2a]/40">
@@ -40,29 +50,24 @@ const Navbar = () => {
       <nav className="hidden md:flex items-center gap-8">
         <NavLink
           to="/"
-          className={({ isActive }) =>
-            `text-[12px] leading-4 tracking-widest font-bold transition-colors ${
-              isActive
-                ? "text-[#c7c9a3]"
-                : "text-[#e5e2e1] hover:text-[#c9c6c5]"
-            }`
-          }
+          className={navLinkStyle}
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           HOME
         </NavLink>
         <NavLink
           to="/store"
-          className={({ isActive }) =>
-            `text-[12px] leading-4 tracking-widest font-bold transition-colors ${
-              isActive
-                ? "text-[#c7c9a3]"
-                : "text-[#e5e2e1] hover:text-[#c9c6c5]"
-            }`
-          }
+          className={navLinkStyle}
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           STORE
+        </NavLink>
+        <NavLink
+          to="/tshirts"
+          className={navLinkStyle}
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          TSHIRT
         </NavLink>
       </nav>
 
@@ -98,13 +103,7 @@ const Navbar = () => {
         <div className="absolute top-full left-0 w-full bg-[#131313] border-b border-[#2a2a2a] px-6 py-6 flex flex-col gap-4 md:hidden shadow-2xl">
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              `text-[13px] tracking-widest font-bold py-2 transition-colors ${
-                isActive
-                  ? "text-[#c7c9a3]"
-                  : "text-[#e5e2e1] hover:text-[#c7c9a3]"
-              }`
-            }
+            className={mobileNavLinkStyle}
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             onClick={() => setIsMobileMenuOpen(false)}
           >
@@ -112,17 +111,19 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to="/store"
-            className={({ isActive }) =>
-              `text-[13px] tracking-widest font-bold py-2 transition-colors ${
-                isActive
-                  ? "text-[#c7c9a3]"
-                  : "text-[#e5e2e1] hover:text-[#c7c9a3]"
-              }`
-            }
+            className={mobileNavLinkStyle}
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             STORE
+          </NavLink>
+          <NavLink
+            to="/tshirts"
+            className={mobileNavLinkStyle}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            TSHIRT
           </NavLink>
         </div>
       )}
