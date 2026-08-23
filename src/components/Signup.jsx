@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router"; // ya "react-router-dom"
+import { useAuth } from "../context/AuthContext";
 
 const Signup = ({ setToggle }) => {
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // 👈 Password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 👈 Confirm Password visibility
+
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm({ mode: "onBlur" });
+
+  const password = watch("password");
+
+  const onSubmit = (data) => {
+    setErrorMsg("");
+    try {
+      signup({
+        name: data.fullName,
+        email: data.email,
+        password: data.password,
+      });
+      navigate("/");
+    } catch (err) {
+      setErrorMsg(err.message || "REGISTRATION FAILED");
+    }
+  };
+
   return (
     <div
       className="bg-[#131313] text-[#e5e2e1] h-screen w-screen flex flex-col md:flex-row antialiased selection:bg-[#c7c9a3] selection:text-[#2f3217] overflow-hidden"
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
-      {/* Left Side: Image */}
       <div className="hidden md:block md:w-1/2 lg:w-[55%] h-full relative overflow-hidden bg-[#20201f]">
         <img
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
-          src="https://lh3.googleusercontent.com/aida/AP1WRLuStl_5ZILsMzZPFmDGIF_-SvwOGi5qRK8VAHq3PTXEFMLk7kReKMJKUUYLWTbKyGLf_bUrRHfTsehgic9y5M7X4VnG8gAumwF5vZPA7L9dkBnjliMLlvwWS5Gj7MAlqheYIGa5bvNcCcTdH-JvJFcKlKv297jxf_3_0Qcq3YqV0mWZ_mpnauKTM8vOagmJtFLwhMrqAOczBfIQ_aZQYICgeB--TmWMddHVH3KwwyPrQDxjI4MzTSlIOA"
+          src="https://i.pinimg.com/736x/3f/b6/10/3fb6100042f1b9725d80d831dd2bf446.jpg"
         />
-        {/* Overlay gradient for depth */}
         <div className="absolute inset-0 bg-linear-to-t from-[#131313]/80 via-transparent to-transparent"></div>
         <div className="absolute bottom-12 left-12 right-12">
           <h2
@@ -28,20 +59,9 @@ const Signup = ({ setToggle }) => {
         </div>
       </div>
 
-      {/* Right Side: Form */}
       <div className="w-full md:w-1/2 lg:w-[45%] bg-[#0d0d0d] h-full flex flex-col px-6 md:px-12 py-8 justify-center overflow-y-auto relative z-10">
-        {/* Mobile Logo */}
-        <div className="md:hidden mb-6">
-          <h1
-            className="text-[28px] leading-tight text-[#e5e2e1]"
-            style={{ fontFamily: "'Anton', sans-serif" }}
-          >
-            BLAKOUT CO.
-          </h1>
-        </div>
-
         <div className="max-w-120 w-full mx-auto md:mx-0 my-auto">
-          <div className="mb-8">
+          <div className="mb-6">
             <h1
               className="text-[40px] md:text-[52px] leading-tight text-[#e5e2e1] uppercase mb-1"
               style={{ fontFamily: "'Anton', sans-serif" }}
@@ -56,7 +76,20 @@ const Signup = ({ setToggle }) => {
             </p>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+          {errorMsg && (
+            <p
+              className="text-red-400 text-[12px] tracking-wider uppercase font-semibold border-l-2 border-red-500 pl-2 mb-4"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {errorMsg}
+            </p>
+          )}
+
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4"
+            noValidate
+          >
             {/* Full Name */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300"
@@ -72,11 +105,18 @@ const Signup = ({ setToggle }) => {
               <input
                 className="bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none"
                 id="fullName"
-                name="fullName"
                 placeholder="ENTER YOUR NAME"
-                required
+                {...register("fullName", {
+                  required: "NAME IS REQUIRED",
+                  minLength: { value: 2, message: "AT LEAST 2 CHARACTERS" },
+                })}
                 type="text"
               />
+              {errors.fullName && (
+                <p className="text-red-400 text-[10px] tracking-wider uppercase mt-0.5">
+                  {errors.fullName.message}
+                </p>
+              )}
             </div>
 
             {/* Email */}
@@ -94,14 +134,24 @@ const Signup = ({ setToggle }) => {
               <input
                 className="bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none"
                 id="email"
-                name="email"
                 placeholder="ENTER YOUR EMAIL"
-                required
+                {...register("email", {
+                  required: "EMAIL IS REQUIRED",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "INVALID EMAIL FORMAT",
+                  },
+                })}
                 type="email"
               />
+              {errors.email && (
+                <p className="text-red-400 text-[10px] tracking-wider uppercase mt-0.5">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
-            {/* Password */}
+            {/* Password with Eye Toggle */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300 relative group"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}
@@ -113,17 +163,35 @@ const Signup = ({ setToggle }) => {
               >
                 <span>PASSWORD</span>
               </label>
-              <input
-                className="bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none pr-10"
-                id="password"
-                name="password"
-                placeholder="••••••••"
-                required
-                type="password"
-              />
+              <div className="relative flex items-center">
+                <input
+                  className="w-full bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none pr-10"
+                  id="password"
+                  placeholder="••••••••"
+                  {...register("password", {
+                    required: "PASSWORD IS REQUIRED",
+                    minLength: { value: 6, message: "MINIMUM 6 CHARACTERS" },
+                  })}
+                  type={showPassword ? "text" : "password"}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-0 text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors cursor-pointer bg-transparent border-none flex items-center"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {showPassword ? "visibility_off" : "visibility"}
+                  </span>
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-red-400 text-[10px] tracking-wider uppercase mt-0.5">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
-            {/* Confirm Password */}
+            {/* Confirm Password with Eye Toggle */}
             <div
               className="flex flex-col gap-1 pb-1 transition-colors duration-300 relative group"
               style={{ borderBottom: "1px solid rgba(229, 226, 225, 0.2)" }}
@@ -133,29 +201,48 @@ const Signup = ({ setToggle }) => {
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 htmlFor="confirmPassword"
               >
-                <span>CONFIRM PASSWORD</span>
+                CONFIRM PASSWORD
               </label>
-              <input
-                className="bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none pr-10"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="••••••••"
-                required
-                type="password"
-              />
+              <div className="relative flex items-center">
+                <input
+                  className="w-full bg-transparent border-none p-0 text-[16px] leading-6 text-[#e5e2e1] focus:ring-0 placeholder:text-[#353535] focus:outline-none pr-10"
+                  id="confirmPassword"
+                  placeholder="••••••••"
+                  {...register("confirmPassword", {
+                    required: "CONFIRM YOUR PASSWORD",
+                    validate: (val) =>
+                      val === password || "PASSWORDS DO NOT MATCH",
+                  })}
+                  type={showConfirmPassword ? "text" : "password"}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-0 text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors cursor-pointer bg-transparent border-none flex items-center"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {showConfirmPassword ? "visibility_off" : "visibility"}
+                  </span>
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="text-red-400 text-[10px] tracking-wider uppercase mt-0.5">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
-            {/* Submit Button */}
             <div className="pt-3">
               <button
-                className="w-full bg-[#c9c6c5] text-[#313030] hover:bg-white transition-colors duration-300 py-3.5 px-6 flex justify-between items-center group cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full bg-[#c9c6c5] text-[#313030] hover:bg-white transition-colors duration-300 py-3.5 px-6 flex justify-between items-center group cursor-pointer disabled:opacity-50"
                 type="submit"
               >
                 <span
                   className="text-[12px] leading-4 tracking-widest uppercase font-bold"
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 >
-                  CREATE ACCOUNT
+                  {isSubmitting ? "CREATING..." : "CREATE ACCOUNT"}
                 </span>
                 <span className="material-symbols-outlined text-[#313030] group-hover:translate-x-1 transition-transform duration-300">
                   arrow_forward
@@ -165,16 +252,14 @@ const Signup = ({ setToggle }) => {
           </form>
 
           <div className="mt-8 pt-6 border-t border-[#444748]/20 flex flex-col gap-4">
-            <a
-              className="cursor-pointer text-[12px] leading-4 tracking-widest text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors duration-200 uppercase"
+            <button
+              type="button"
+              className="cursor-pointer text-[12px] leading-4 tracking-widest text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors duration-200 uppercase bg-transparent border-none text-left"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              onClick={(e) => {
-                e.preventDefault();
-                setToggle((prev) => !prev);
-              }}
+              onClick={() => setToggle((prev) => !prev)}
             >
               ALREADY HAVE AN ACCOUNT? LOGIN
-            </a>
+            </button>
           </div>
         </div>
       </div>

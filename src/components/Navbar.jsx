@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext"; // 👈 1. useAuth import karein
 import CartDrawer from "./CartDrawer";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartCount = 0 } = useCart();
+  const { logout } = useAuth(); // 👈 2. logout extract karein
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("Logged out");
+    logout();
+    navigate("/auth"); // 👈 3. Logout ke baad wapas Login page par bhej dega
   };
 
   const navLinkStyle = ({ isActive }) =>
@@ -26,7 +30,6 @@ const Navbar = () => {
     <>
       <header className="fixed top-0 left-0 w-full flex justify-between items-center px-5 sm:px-8 md:px-12 py-5 md:py-6 bg-[#131313] z-50 border-b border-[#2a2a2a]/40">
         <div className="flex items-center gap-4">
-          {/* Mobile Menu Toggle */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -38,7 +41,6 @@ const Navbar = () => {
             </span>
           </button>
 
-          {/* Logo */}
           <NavLink
             to="/"
             className="text-[26px] sm:text-[32px] leading-none font-normal text-[#e5e2e1] tracking-tighter cursor-pointer"
@@ -82,7 +84,7 @@ const Navbar = () => {
 
         {/* Action Icons */}
         <div className="flex items-center gap-4 sm:gap-6 text-[#e5e2e1]">
-          {/* Cart Trigger Button */}
+          {/* Cart Trigger */}
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
@@ -147,11 +149,22 @@ const Navbar = () => {
             >
               BOTTOMS
             </NavLink>
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                handleLogout();
+              }}
+              className="text-left text-[13px] tracking-widest font-bold py-2 text-red-400 hover:text-red-300 uppercase cursor-pointer"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              LOGOUT
+            </button>
           </div>
         )}
       </header>
 
-      {/* Cart Drawer Component */}
+      {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
