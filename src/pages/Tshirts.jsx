@@ -1,6 +1,7 @@
 import React from "react";
 import { hotWheelsTshirts } from "../data/hotWheelsTshirts";
 import { useCart } from "../context/CartContext";
+import TextLoop from "../components/TextLoop";
 
 const Tshirts = () => {
   const { cartItems, addToCart, updateQuantity } = useCart();
@@ -20,7 +21,7 @@ const Tshirts = () => {
       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
     >
       {/* Main Content */}
-      <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-28 grow">
+      <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-16 grow">
         {/* Header / Hero */}
         <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12">
           <div>
@@ -146,6 +147,27 @@ const Tshirts = () => {
           </div>
         </div>
       </main>
+
+      {/* Sabse Last me: Custom Configured TextLoop */}
+      <div className="w-full pb-8 overflow-hidden bg-[#131313]">
+        <TextLoop
+          text="HOT WHEELS TEES"
+          shape="wave"
+          speed={210}
+          direction="forward"
+          separator="✦"
+          curviness={0}
+          fontSize={58}
+          fontWeight={800}
+          letterSpacing={2}
+          uppercase
+          color="#ffffff"
+          ribbon
+          ribbonColor="#5227FF"
+          ribbonWidth={0}
+          pauseOnHover
+        />
+      </div>
 
       {/* Footer */}
       <footer className="w-full py-12 sm:py-16 bg-[#0e0e0e] border-t border-[#444748]/20 flex flex-col md:flex-row justify-between items-center px-6 md:px-16 gap-6">

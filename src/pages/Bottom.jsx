@@ -1,82 +1,14 @@
-import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
-import { useCart } from "../context/CartContext";
-import { hotWheelsTshirts } from "../data/hotWheelsTshirts";
+import React from "react";
 import { souledStoreBottoms } from "../data/souledStoreBottoms";
+import { useCart } from "../context/CartContext";
 
-const Store = () => {
-  const [apiProducts, setApiProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
-  const [error, setError] = useState(null);
+const Bottoms = () => {
   const { cartItems, addToCart, updateQuantity } = useCart();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(
-          "https://vastrado.com/products.json?limit=15",
-        );
-        const items = response.data.products?.slice(0, 15) || [];
-        setApiProducts(items);
-      } catch (err) {
-        setError(err.message || "Failed to fetch products");
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  // Normalize and combine all products
-  const allCombinedProducts = useMemo(() => {
-    // 1. T-Shirts collection
-    const formattedTshirts = hotWheelsTshirts.map((item) => ({
-      id: `tshirt-${item.id}`,
-      title: item.name,
-      price: item.price,
-      compareAtPrice: item.originalPrice,
-      image: item.image,
-      badge: item.discount,
-      category: "TSHIRTS",
-      subtitle: item.fabric || "Oversized Tee",
-    }));
-
-    // 2. Bottoms collection
-    const formattedBottoms = souledStoreBottoms.map((item) => ({
-      id: `bottom-${item.id}`,
-      title: item.name,
-      price: item.price,
-      compareAtPrice: item.originalPrice,
-      image: item.image,
-      badge: item.discount,
-      category: "BOTTOMS",
-      subtitle: item.fit || "Pants & Cargo",
-    }));
-
-    // 3. API Products
-    const formattedApiProducts = apiProducts.map((item) => ({
-      id: item.id,
-      title: item.title || "Exclusive Product",
-      price: item.variants?.[0]?.price || "",
-      compareAtPrice: item.variants?.[0]?.compare_at_price || null,
-      image: item.images?.[0]?.src || "",
-      badge: item.badge || null,
-      category: "EXCLUSIVES",
-      subtitle: "Vastrado Edition",
-    }));
-
-    return [...formattedTshirts, ...formattedBottoms, ...formattedApiProducts];
-  }, [apiProducts]);
-
-  // Filter products based on selected tab
-  const filteredProducts = useMemo(() => {
-    if (selectedCategory === "ALL") return allCombinedProducts;
-    return allCombinedProducts.filter((p) => p.category === selectedCategory);
-  }, [selectedCategory, allCombinedProducts]);
 
   const handleAddToCart = (item) => {
     addToCart({
       id: item.id,
-      title: item.title,
+      title: item.name,
       price: item.price,
       image: item.image,
     });
@@ -90,58 +22,25 @@ const Store = () => {
       {/* Main Content */}
       <main className="max-w-360 mx-auto w-full px-3 sm:px-5 md:px-16 pb-28 grow">
         {/* Header / Hero */}
-        <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <header className="pt-4 pb-8 sm:py-12 md:py-16 border-b border-[#444748]/20 mb-8 sm:mb-12">
           <div>
             <h1
               className="text-[40px] sm:text-[64px] md:text-[120px] leading-none text-[#e5e2e1] uppercase mb-4 tracking-tighter"
               style={{ fontFamily: "'Anton', sans-serif" }}
             >
-              THE SHOP
+              MENS BOTTOMWEAR
             </h1>
             <p className="text-[13px] sm:text-[16px] md:text-[18px] text-[#c4c7c7] max-w-2xl">
-              Complete catalog. Oversized Heavyweight Tees, Utility Cargos, and
-              curated streetwear drops.
+              Utility Cargos, Parachute Pants & Heavyweight Denims curated from
+              The Souled Store for high-mobility street style.
             </p>
-          </div>
-
-          {/* Category Filter Tabs */}
-          <div
-            className="flex gap-2 flex-wrap"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            {["ALL", "TSHIRTS", "BOTTOMS", "EXCLUSIVES"].map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-widest border transition-all cursor-pointer ${
-                  selectedCategory === cat
-                    ? "bg-[#c7c9a3] text-[#131313] border-[#c7c9a3]"
-                    : "bg-[#1a1a1a] text-[#c9c6c5] border-[#2a2a2a] hover:border-[#444748]"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
           </div>
         </header>
-
-        {/* Error State */}
-        {error && (
-          <div className="flex justify-center items-center py-4">
-            <p
-              className="text-red-400 text-[13px] tracking-wider uppercase"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              {error}
-            </p>
-          </div>
-        )}
 
         {/* Product Grid */}
         <div className="w-full">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-            {filteredProducts.map((item) => {
+            {souledStoreBottoms.map((item) => {
               const cartProduct = cartItems?.find(
                 (cartItem) => cartItem.id === item.id,
               );
@@ -159,8 +58,7 @@ const Store = () => {
                         <img
                           className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out"
                           src={item.image}
-                          alt={item.title}
-                          loading="lazy"
+                          alt={item.name}
                         />
                       ) : (
                         <span className="text-[#444748] text-[10px] sm:text-xs uppercase tracking-widest">
@@ -168,26 +66,23 @@ const Store = () => {
                         </span>
                       )}
 
-                      {item.badge && (
+                      {/* Badge */}
+                      {item.discount && (
                         <div
                           className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-[#0d0d0d] text-[#c9c6c5] text-[9px] sm:text-[11px] tracking-widest font-bold px-1.5 py-0.5 uppercase"
                           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                         >
-                          {item.badge}
+                          {item.discount}
                         </div>
                       )}
                     </div>
 
-                    {/* Subtitle / Fit */}
-                    {item.subtitle && (
-                      <span className="text-[10px] text-[#c7c9a3] uppercase tracking-wider block mb-0.5">
-                        {item.subtitle}
-                      </span>
-                    )}
-
-                    {/* Product Title */}
+                    {/* Product Info */}
+                    <span className="text-[10px] text-[#c7c9a3] uppercase tracking-wider block mb-0.5">
+                      {item.fit}
+                    </span>
                     <h4 className="text-[13px] sm:text-[15px] text-[#e5e2e1] font-medium mb-1 uppercase tracking-wide truncate">
-                      {item.title}
+                      {item.name}
                     </h4>
 
                     {/* Price & Discount */}
@@ -198,10 +93,10 @@ const Store = () => {
                       <span className="text-[#e5e2e1] font-semibold">
                         ₹{item.price}
                       </span>
-                      {item.compareAtPrice &&
-                        Number(item.compareAtPrice) > Number(item.price) && (
+                      {item.originalPrice &&
+                        Number(item.originalPrice) > Number(item.price) && (
                           <span className="text-[#8e9192] line-through text-[10px] sm:text-[12px]">
-                            ₹{item.compareAtPrice}
+                            ₹{item.originalPrice}
                           </span>
                         )}
                     </div>
@@ -304,4 +199,4 @@ const Store = () => {
   );
 };
 
-export default Store;
+export default Bottoms;
