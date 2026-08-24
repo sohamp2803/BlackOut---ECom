@@ -76,6 +76,7 @@ const Login = ({ setToggle }) => {
               noValidate
             >
               <div className="space-y-5">
+                {/* Email Input (Option 2) */}
                 <div className="relative group">
                   <input
                     id="email"
@@ -88,11 +89,11 @@ const Login = ({ setToggle }) => {
                         message: "INVALID EMAIL FORMAT",
                       },
                     })}
-                    className="block w-full border-0 border-b border-[#c4c7c7]/30 focus:border-[#c7c9a3] focus:ring-0 text-[#e5e2e1] text-[16px] py-3 px-0 bg-[#1c1b1b] transition-colors duration-300 peer"
+                    className="block w-full border border-[#c4c7c7]/30 focus:border-[#c7c9a3] focus:ring-0 text-[#e5e2e1] text-[16px] py-3 px-3 bg-transparent transition-colors duration-300 peer"
                   />
                   <label
                     htmlFor="email"
-                    className="absolute text-[#c4c7c7] text-[11px] leading-4 tracking-widest font-bold top-3 left-0 -translate-y-5 scale-75 origin-left peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-[#c7c9a3] transition-all duration-300"
+                    className="absolute text-[#c4c7c7] text-[11px] leading-4 tracking-widest font-bold top-3 left-3 -translate-y-2 scale-75 origin-left peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-2 peer-focus:text-[#c7c9a3] transition-all duration-300 pointer-events-none"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     EMAIL ADDRESS
@@ -104,6 +105,7 @@ const Login = ({ setToggle }) => {
                   )}
                 </div>
 
+                {/* Password Input (Option 2) */}
                 <div className="relative group">
                   <input
                     id="password"
@@ -112,11 +114,11 @@ const Login = ({ setToggle }) => {
                     {...register("password", {
                       required: "PASSWORD IS REQUIRED",
                     })}
-                    className="block w-full border-0 border-b border-[#c4c7c7]/30 focus:border-[#c7c9a3] focus:ring-0 text-[#e5e2e1] text-[16px] py-3 pl-0 pr-10 bg-[#1c1b1b] transition-colors duration-300 peer"
+                    className="block w-full border border-[#c4c7c7]/30 focus:border-[#c7c9a3] focus:ring-0 text-[#e5e2e1] text-[16px] py-3 px-3 pr-10 bg-transparent transition-colors duration-300 peer"
                   />
                   <label
                     htmlFor="password"
-                    className="absolute text-[#c4c7c7] text-[11px] leading-4 tracking-widest font-bold top-3 left-0 -translate-y-5 scale-75 origin-left peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-[#c7c9a3] transition-all duration-300"
+                    className="absolute text-[#c4c7c7] text-[11px] leading-4 tracking-widest font-bold top-3 left-3 -translate-y-2 scale-75 origin-left peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-2 peer-focus:text-[#c7c9a3] transition-all duration-300 pointer-events-none"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     PASSWORD
@@ -125,7 +127,7 @@ const Login = ({ setToggle }) => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-0 top-3 text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors cursor-pointer p-0 bg-transparent border-none flex items-center"
+                    className="absolute right-3 top-3 text-[#c4c7c7] hover:text-[#e5e2e1] transition-colors cursor-pointer p-0 bg-transparent border-none flex items-center z-10"
                     aria-label="Toggle password visibility"
                   >
                     <span className="material-symbols-outlined text-[20px]">
