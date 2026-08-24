@@ -66,7 +66,7 @@ const Signup = ({ setToggle }) => {
               className="text-[40px] md:text-[52px] leading-tight text-[#e5e2e1] uppercase mb-1"
               style={{ fontFamily: "'Anton', sans-serif" }}
             >
-              JOIN THE ARCHIVE
+              BECOME AN INSIDER
             </h1>
             <p
               className="text-[12px] leading-4 tracking-widest text-[#c4c7c7] uppercase font-bold"
