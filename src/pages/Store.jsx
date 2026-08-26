@@ -3,8 +3,10 @@ import axios from "axios";
 import { useCart } from "../context/CartContext";
 import { hotWheelsTshirts } from "../data/hotWheelsTshirts";
 import { souledStoreBottoms } from "../data/souledStoreBottoms";
+import { useNavigate } from "react-router";
 
 const Store = () => {
+  const navigate = useNavigate();
   const [apiProducts, setApiProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [error, setError] = useState(null);
@@ -142,7 +144,14 @@ const Store = () => {
                   key={item.id}
                   className="group relative flex flex-col justify-between bg-[#181818] border border-[#2a2a2a] p-2.5 sm:p-3.5 hover:border-[#444748] transition-colors duration-300"
                 >
-                  <div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(`/detail/${item.id}`, {
+                        state: { product: item },
+                      })
+                    }
+                  >
                     <div className="relative w-full aspect-4/5 bg-[#141414] overflow-hidden mb-3 flex items-center justify-center">
                       {item.image ? (
                         <img
@@ -239,43 +248,12 @@ const Store = () => {
           </div>
         </div>
       </main>
-
       <footer className="w-full py-12 sm:py-16 bg-[#0e0e0e] border-t border-[#444748]/20 flex flex-col md:flex-row justify-between items-center px-6 md:px-16 gap-6">
         <div
           className="text-[28px] md:text-[32px] text-[#e5e2e1] uppercase tracking-tighter"
           style={{ fontFamily: "'Anton', sans-serif" }}
         >
           BLAKOUT.
-        </div>
-        <div className="flex gap-4 sm:gap-6 flex-wrap justify-center text-[12px] sm:text-[14px]">
-          <a
-            className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#privacy"
-          >
-            PRIVACY
-          </a>
-          <a
-            className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#terms"
-          >
-            TERMS
-          </a>
-          <a
-            className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#contact"
-          >
-            CONTACT
-          </a>
-          <a
-            className="text-[#c4c7c7] hover:text-[#e5e2e1] underline transition-all duration-300 uppercase"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            href="#shipping"
-          >
-            SHIPPING
-          </a>
         </div>
         <div
           className="text-[12px] sm:text-[14px] text-[#c4c7c7] text-center"
